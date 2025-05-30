@@ -23,6 +23,7 @@
  */
 package com.apptasticsoftware.insynsregistret;
 
+import io.github.pixee.security.BoundedLineReader;
 import javax.net.ssl.SSLContext;
 import java.io.*;
 import java.net.URI;
@@ -158,7 +159,7 @@ public class Insynsregistret {
 
     Stream<Transaction> parseTransactionResponse(BufferedReader reader) throws IOException {
         // Read header
-        var header = reader.readLine();
+        var header = BoundedLineReader.readLine(reader, 5_000_000);
 
         if (header == null)
             return Stream.empty();

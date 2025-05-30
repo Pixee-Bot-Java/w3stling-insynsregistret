@@ -1,5 +1,6 @@
 package com.apptasticsoftware.insynsregistret;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
@@ -23,7 +24,7 @@ class InsynsregistretTest {
 
         InsynsregistretDummy a = new InsynsregistretDummy();
         BufferedReader reader = a.sendTransactionRequest(query);
-        String header = reader.readLine();
+        String header = BoundedLineReader.readLine(reader, 5_000_000);
         String[] headerColumns = header.split(";");
 
 
@@ -46,7 +47,7 @@ class InsynsregistretTest {
 
         InsynsregistretDummy a = new InsynsregistretDummy();
         BufferedReader reader = a.sendTransactionRequest(query);
-        String header = reader.readLine();
+        String header = BoundedLineReader.readLine(reader, 5_000_000);
         String[] headerColumns = header.split(";");
 
 
